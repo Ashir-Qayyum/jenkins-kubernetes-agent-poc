@@ -7,30 +7,36 @@ unclassified:
     adminAddress: "muhammadashir2004@gmail.com"   # This is my email I am tellig to Jenkins
 
 
-jenkins:
+jenkins:        
 
-  clouds:
+  clouds:                           # jenkins cloud configuration
 
-    - kubernetes:
+    - kubernetes:         # cofigruing kubernetes agent
 
-        name: "kubernetes"
+        name: "kubernetes"        
 
-        serverUrl: "https://kubernetes.default"
+        serverUrl: "https://kubernetes.default"       # api server url
 
-        namespace: "jenkins"
+        namespace: "jenkins"                   # The agent pod will be deployed in this namesapce
 
-        jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
+        jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"     # jenkins server ip resolve with codeDNS
 
-        jenkinsTunnel: "jenkins-agent.jenkins.svc.cluster.local:50000"
+        jenkinsTunnel: "jenkins-agent.jenkins.svc.cluster.local:50000"  # When the agent pod is deployed, it consists of jnlp container
+                                          # When an Agent Pod starts its jnlp container connects to this address on Port 50000 to register itself with Jenkins.
+                                          # without it the agent pod would never become online
+                                          # in my setup helm is creating the service jenkins-agent automatically
+                                          
+                                          # The Jenkins controller creates agent pod, The jnlp container inside that Agent Pod connects back to the Jenkins 
+                                          # Controller through the jenkins-agent Service at this address
 
-        containerCapStr: "10"
+        containerCapStr: "10"         # THis is the max pod agent is allowed to create
 
-        connectTimeout: 5
+        connectTimeout: 5       # jenkins waits for 5 sec until establish connection with api server then retries
 
-        readTimeout: 15
+        readTimeout: 15           # jenkins waits for 15 seconds for kubernetes to return data
 
-        maxRequestsPerHostStr: "32"
+        maxRequestsPerHostStr: "32"   # jenkins can make max 32 simultaneous http req to the api server
 
-        useJenkinsProxy: false
+        useJenkinsProxy: false        # As i am running jenkins, agent, and deployment in the same cluster therefore no proxy is needed
 
-        skipTlsVerify: true
+        skipTlsVerify: true        # for now, i have disabled the tls verification
