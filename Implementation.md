@@ -12,7 +12,7 @@ containers specific to the pipeline stages & with the required tools installed<b
 These ephemeral containers contain the tools required in the pipeline stage,<br>
 They perform the task in the functions ,and get terminated with the pod once the task is completed.
 
-In my Jenkinsfile, I have included all the kubernetes agents i required for the<br>
+In my Jenkinsfile, I have included all the kubernetes agents configurations i required for the<br>
 pipeline including the shared volumes, and containers of DinD (contains docker daemon<br>
 for image building, shared it to docker CLI), docker CLI (for login, build, & push the image to dockerhub), <br>
 and Helm (for installing the sms deployment stacks) using their official public images.<br>
