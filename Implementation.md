@@ -1,5 +1,5 @@
 I cloned my JCasC Plugin + Manual DinD Sidecar Container Project from:<br>
-https://github.com/Ashir-Qayyum/jenkins-jcasc-plugin-poc.git
+https://github.com/Ashir-Qayyum/jenkins-jcasc-plugin-poc.git<br>
 (The project uses shared-library functions for CI/CD pipeline)
 
 I modified the values.yaml at jenkins-jcasc-helm/values.yaml to remove<br>
