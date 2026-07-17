@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: postgres
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: student
+            - name: POSTGRES_PASSWORD_FILE
+              value: /run/secrets/postgres_password
+            - name: POSTGRES_USER
+              value: postgres
+          image: postgres:16
+          name: postgres
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /run/secrets/postgres_password
+              name: postgres-password
+              subPath: postgres_password
+              readOnly: true
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+      volumes:
+        - name: postgres-password
+          secret:
+            items:
+              - key: postgres_password
+                path: postgres_password
+            secretName: postgres-password
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-data

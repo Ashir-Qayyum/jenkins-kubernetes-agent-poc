@@ -1,0 +1,22 @@
+jenkins:
+
+  systemMessage: |        # This will be diplayed as a LABEL in jenkins homepage
+    Hi Welcome to Ashir's Jenkins
+
+    I have managed this Jenkins instance entirely through JCASC and Helm.
+
+  numExecutors: 0     # NOW THE JENKINS CONTROLLER CONTAINER WILL NOT RUN ANY JOB, IT ONLY SCHEDULES. THE AGENTS CONTAINER WILL RUN THE JOBS 
+                      
+  mode: NORMAL      # jenkins can schedule task on any node 
+
+  quietPeriod: 5      # Wait for 5 sec when the build triggers
+
+  scmCheckoutRetryCount: 2    # If git checkout fails try two times
+
+  slaveAgentPort: 50000
+
+  globalNodeProperties:
+    - envVars:
+        env:
+          - key: MAC_HOST
+            value: "10.4.85.6"    # THis is my host Mac IP Address

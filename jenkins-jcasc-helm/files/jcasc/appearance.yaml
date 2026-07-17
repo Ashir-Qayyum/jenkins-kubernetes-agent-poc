@@ -1,0 +1,5 @@
+appearance:
+
+  themeManager:
+    disableUserThemes: false
+    theme: "dark"               # THe jenkins UI Will appear Dark

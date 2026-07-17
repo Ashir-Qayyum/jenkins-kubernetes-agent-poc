@@ -1,0 +1,22 @@
+## This is the list of plugins I am installing with Jenkins
+## I included these plugins under installPlugins section
+## in the values.yaml for jenkins installations
+
+configuration-as-code
+git
+github
+workflow-aggregator
+job-dsl
+kubernetes
+credentials
+credentials-binding
+plain-credentials
+ssh-credentials
+pipeline-stage-view
+workflow-job
+workflow-cps
+workflow-basic-steps
+pipeline-github-lib
+matrix-auth
+role-strategy
+dark-theme

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: backend
+
+  template:
+    metadata:
+      labels:
+        app: backend
+
+    spec:
+      containers:
+        - name: backend
+
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+          ports:
+            - containerPort: 8080
+
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}
+
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.database.user }}
+
+          volumeMounts:
+            - name: postgres-password
+              mountPath: /run/secrets/postgres_password
+              subPath: postgres_password
+              readOnly: true
+
+      volumes:
+        - name: postgres-password
+          secret:
+            secretName: postgres-password

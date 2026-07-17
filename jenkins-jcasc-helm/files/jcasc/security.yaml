@@ -1,0 +1,20 @@
+jenkins:
+
+  securityRealm:    # It will define how user autheenicate
+    local:      # MEans jenkins will manage its own user database 
+      allowsSignup: false     # New account cannot be created
+      enableCaptcha: false
+
+      users:
+        - id: "${chart-admin-username}"
+          name: "Ashir"
+          password: "${chart-admin-password}"
+
+  authorizationStrategy:      # THis defines the authorization
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+  disableRememberMe: false      # Means the login credentials can be saved for ease login
+
+  remotingSecurity:
+    enabled: true       # This keeps jenkins agent communication protected

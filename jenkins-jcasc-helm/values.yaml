@@ -1,0 +1,68 @@
+jenkins:      # All these values belongs to the dependency helm chart i.e. the official helm chart I included in the Chart.yaml
+              # dependency section, so these values will be used as e.g. .Values.controller.admin.username directly by the 
+              # jenkins dependency helm chart included
+
+  controller:
+    
+    image:                    # I Added this section later when implementing CI/CD. Jenkins official image didn't include tools
+      registry: docker.io     # like helm, kubectl, docker CLI etc. as i am not yet implementing jenkins k8s agent AND the pipeline 
+                              # will be run inside the jenkins pod container. The image Dockerfile is in dir: jenkins-custom-image
+      repository: ashirqayyum/custom-jenkins
+      tag: "1.0"
+
+
+    admin:
+      username: ashir
+      password: ashir123    # Initial Password LATER I shall change it
+
+    serviceType: NodePort   # As I am using MINIKUBE for kubernetes on docker driver on colima
+    
+    initializeOnce: false       # This is because  there's a pvc implemented. IF later we modify the plugins or jcasc files and upgrade helm,
+                                # then the data inside pvc could also get update again
+    
+    JCasC:
+      enabled: true                   # It enabled JCasC
+      defaultConfig: false            # It disabled default config of JCasC
+
+      securityRealm: ""               # THis is avoid clash between my securityREalm object & jenkins official helm chart default generated
+      authorizationStrategy: ""       
+
+      sidecars:
+        configAutoReload:
+          enabled: true     # This will ensure the JCasC is configured auto
+
+      # The other method for installing all JCasC configs into Jenkins instance is including the configs codes
+      # in the configScripts section under JCasC object in this values.yaml also supported officially BUT I implemented the
+      # separate JCasC files Method which keeps the files separate for better readability and organization.
+
+    installPlugins:       # Installing Plugins along with jenkins as supported in official jenkins helm chart
+
+      - configuration-as-code
+      - git
+      - github
+
+      - workflow-aggregator
+      - workflow-job
+      - workflow-cps
+      - workflow-basic-steps
+
+      - job-dsl
+
+      - kubernetes
+
+      - credentials
+      - credentials-binding
+      - plain-credentials
+      - ssh-credentials
+
+      - pipeline-stage-view
+      - pipeline-github-lib
+
+      - matrix-auth
+      - role-strategy
+
+      - dark-theme        
+
+
+  agent:                         
+    enabled: true         # Enabling Agent

@@ -1,0 +1,12 @@
+image:
+  repository: ashirqayyum/sms-backend
+  tag: "jenkins"
+
+service:
+  port: 8080
+
+database:
+  host: postgres
+  port: 5432
+  name: student
+  user: postgres

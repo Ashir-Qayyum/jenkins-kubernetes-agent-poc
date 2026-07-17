@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+
+
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - image: ashirqayyum/sms-frontend:1.1
+          name: frontend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP

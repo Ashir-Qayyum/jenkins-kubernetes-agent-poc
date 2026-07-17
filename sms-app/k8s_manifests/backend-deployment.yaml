@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/student
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+          image: ashirqayyum/sms-backend:1.0
+          name: backend
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /run/secrets/postgres_password
+              name: postgres-password
+              subPath: postgres_password
+              readOnly: true
+      volumes:
+        - name: postgres-password
+          secret:
+            items:
+              - key: postgres_password
+                path: postgres_password
+            secretName: postgres-password

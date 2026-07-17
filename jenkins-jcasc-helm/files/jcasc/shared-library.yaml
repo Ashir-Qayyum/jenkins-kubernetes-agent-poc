@@ -1,0 +1,28 @@
+unclassified:
+
+  globalLibraries:
+
+    libraries:
+
+      - name: sms-library       # With this name the repo is referrenced for the shared-library functions
+
+        defaultVersion: main
+
+        allowVersionOverride: true      # so that Later I can also change the branch like @Library('sms-library@feature') _
+
+        implicit: false                 # so that jenkinsfile must include the library name reference in order to load and run the shared functions
+
+        retriever:
+
+          modernSCM:
+
+            scm:
+
+              git:
+
+                remote: "https://github.com/Ashir-Qayyum/jenkins-kubernetes-agent-poc.git"  # My repo
+
+                credentialsId: ""     # AS the repo is public
+
+                traits:
+                  - gitBranchDiscovery      # THis property tells Jenkins how to discover branches in the Git repository.

@@ -1,0 +1,16 @@
+apiVersion: v2
+
+name: jenkins-jcasc
+
+description: Learning Jenkins Configuration as Code
+
+type: application
+
+version: 1.0.0    # My Local Customized Jenkins JCASC Helm Chart Version
+
+appVersion: "2.568.1"   # Jenkins Application Official Image Version I am using
+
+dependencies:
+  - name: jenkins
+    version: "5.9.33"
+    repository: "https://charts.jenkins.io"   # Jenkins Official Helm Chart Version (On which my local helm chart depends on)

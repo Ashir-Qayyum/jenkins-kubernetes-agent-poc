@@ -1,0 +1,16 @@
+tool:
+
+  git:
+    installations:
+      - name: git
+        home: git
+
+  jdk:
+    installations:
+      - name: java17
+        home: /opt/java/openjdk
+
+  maven:
+    installations:
+      - name: maven
+        home: /usr/share/maven

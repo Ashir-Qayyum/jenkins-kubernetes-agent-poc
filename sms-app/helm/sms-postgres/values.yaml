@@ -1,0 +1,11 @@
+image:
+  repository: postgres
+  tag: "16"
+
+database:
+  name: student
+  user: postgres
+  password: password  #These values files are included in the .gitignore to avoid being exposed
+
+persistence:
+  size: 1Gi

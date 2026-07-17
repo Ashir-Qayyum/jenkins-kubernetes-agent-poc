@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: jenkins-admin
+
+subjects:
+- kind: ServiceAccount
+  name: jenkins         # Initially when i ran the pipeline, it built the image perfectly and pushed it also to my dockerhub reg
+  namespace: jenkins    # But later failed and couldn't install the helm charts for app stacks deployment
+                        # WHen jenkins is installed with its helm chart, it creates a service accout in the cluster named as  
+roleRef:                # 'jenkins', which initially has least priveleges, with which it couldn't not deploy the application in the cluster, so I  
+  kind: ClusterRole     # gave the service account whole cluster access Role such that it could deploy the application during the pipeline execution
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io

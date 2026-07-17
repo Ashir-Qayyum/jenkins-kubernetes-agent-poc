@@ -1,0 +1,7 @@
+image:
+  repository: ashirqayyum/sms-frontend
+  tag: "jenkins"
+
+service:
+  type: NodePort
+  port: 80
